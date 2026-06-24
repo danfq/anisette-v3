@@ -1,13 +1,15 @@
 services:
   anisette:
-    image: dadoum/anisette-v3-server
+    image: "dadoum/anisette-v3-server"
     expose:
       - "6969"
 
   web:
-    image: nginx:alpine
-    ports:
+    image: "nginx:alpine"
+    expose:
       - "80"
+    labels:
+      - "traefik.http.services.web.loadbalancer.server.port=80"
     volumes:
-      - ./public:/usr/share/nginx/html:ro
-      - ./nginx:/etc/nginx/conf.d:ro
+      - "./public:/usr/share/nginx/html:ro"
+      - "./nginx:/etc/nginx/conf.d:ro"
